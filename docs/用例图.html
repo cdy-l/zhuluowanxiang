@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>蛛罗万象 - 用例图</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0e1a; font-family: 'Segoe UI','Microsoft YaHei',sans-serif; padding: 20px; }
+h1 { text-align: center; color: #00d4ff; margin-bottom: 20px; font-size: 22px; }
+.diagram { display: flex; justify-content: center; gap: 30px; position: relative; }
+
+/* System boundary */
+.system { border: 2px dashed #00d4ff; border-radius: 12px; padding: 20px; position: relative; background: rgba(0,212,255,0.03); }
+.system-label { position: absolute; top: -12px; left: 20px; background: #0a0e1a; padding: 0 10px; color: #00d4ff; font-size: 13px; font-weight: 700; }
+
+/* Columns */
+.col { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 160px; }
+
+/* Actor */
+.actor { display: flex; flex-direction: column; align-items: center; gap: 2px; margin: 10px 0; }
+.actor-head { width: 24px; height: 24px; border-radius: 50%; border: 3px solid; }
+.actor-body { width: 3px; height: 20px; background: currentColor; }
+.actor-arms { width: 30px; height: 3px; background: currentColor; margin-top: -3px; }
+.actor-label { font-size: 13px; font-weight: 700; margin-top: 4px; }
+.actor-sub { font-size: 9px; color: #94a3b8; }
+
+/* Colors */
+.c-visitor { color: #4a6fa5; }
+.c-user { color: #7c3aed; }
+.c-vip { color: #f59e0b; }
+.c-sys { color: #00d4ff; }
+
+/* Use case bubble */
+.uc { border-radius: 50px; padding: 6px 16px; font-size: 11px; color: #e2e8f0; text-align: center; min-width: 100px; border: 1.5px solid; background: rgba(255,255,255,0.04); }
+.uc.visitor { border-color: #4a6fa5; }
+.uc.user { border-color: #7c3aed; }
+.uc.vip { border-color: #f59e0b; }
+.uc.sys { border-color: #00d4ff; }
+
+/* Line connector */
+.connector { width: 2px; height: 12px; background: currentColor; opacity: 0.5; }
+
+/* Horizontal connector */
+.h-connector { position: relative; display: flex; align-items: center; }
+.h-line { height: 2px; background: #94a3b8; opacity: 0.5; flex: 1; min-width: 60px; }
+.h-label { font-size: 9px; color: #94a3b8; font-style: italic; text-align: center; padding: 0 8px; }
+
+/* Section labels */
+.section-label { font-size: 12px; color: #94a3b8; font-weight: 600; padding: 10px 0 4px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); width: 100%; margin-top: 6px; }
+
+/* Legend */
+.legend { margin-top: 30px; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 8px; color: #94a3b8; font-size: 11px; }
+.legend-color { width: 20px; height: 20px; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<h1>🕸️ 蛛罗万象 — 系统用例图</h1>
+
+<div class="system" style="max-width:1100px;margin:0 auto">
+  <div class="system-label">蛛罗万象 系统边界</div>
+
+  <div style="display:flex;gap:20px;justify-content:space-around;flex-wrap:wrap">
+
+    <!-- ========== 访客列 ========== -->
+    <div class="col">
+      <div class="actor c-visitor">
+        <div class="actor-head" style="border-color:#4a6fa5"></div>
+        <div class="actor-arms" style="background:#4a6fa5"></div>
+        <div class="actor-body" style="background:#4a6fa5"></div>
+        <div class="actor-label" style="color:#4a6fa5">访客</div>
+      </div>
+      <div class="connector" style="color:#4a6fa5"></div>
+      <div class="uc visitor">浏览首页</div>
+      <div class="connector" style="color:#4a6fa5"></div>
+      <div class="uc visitor">查看使用教程</div>
+    </div>
+
+    <!-- 继承箭头 -->
+    <div style="display:flex;flex-direction:column;justify-content:center;align-items:center">
+      <div class="h-line" style="min-width:40px;background:#7c3aed;border-top:2px dashed #7c3aed;height:0"></div>
+      <div class="h-label" style="color:#7c3aed">继承</div>
+    </div>
+
+    <!-- ========== 普通用户列 ========== -->
+    <div class="col">
+      <div class="actor c-user">
+        <div class="actor-head" style="border-color:#7c3aed"></div>
+        <div class="actor-arms" style="background:#7c3aed"></div>
+        <div class="actor-body" style="background:#7c3aed"></div>
+        <div class="actor-label" style="color:#7c3aed">普通用户</div>
+      </div>
+      <div class="connector" style="color:#7c3aed"></div>
+      <div class="uc user">登录 / 注册</div>
+
+      <div class="section-label" style="color:#7c3aed;opacity:0.7">免费工具</div>
+
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px">
+        <div class="uc user">查看热搜热榜</div>
+        <div class="uc user">浏览影视资讯</div>
+        <div class="uc user">Steam折扣查询</div>
+        <div class="uc user">商品比价</div>
+        <div class="uc user">随机点名</div>
+        <div class="uc user">历史上的今天</div>
+        <div class="uc user">玩小游戏合集</div>
+        <div class="uc user">管理个人信息</div>
+      </div>
+    </div>
+
+    <!-- 继承箭头 -->
+    <div style="display:flex;flex-direction:column;justify-content:center;align-items:center">
+      <div class="h-line" style="min-width:40px;background:#f59e0b;border-top:2px dashed #f59e0b;height:0"></div>
+      <div class="h-label" style="color:#f59e0b">继承</div>
+    </div>
+
+    <!-- ========== VIP用户列 ========== -->
+    <div class="col">
+      <div class="actor c-vip">
+        <div class="actor-head" style="border-color:#f59e0b"></div>
+        <div class="actor-arms" style="background:#f59e0b"></div>
+        <div class="actor-body" style="background:#f59e0b"></div>
+        <div class="actor-label" style="color:#f59e0b">VIP用户</div>
+      </div>
+      <div class="connector" style="color:#f59e0b"></div>
+
+      <div class="section-label" style="color:#f59e0b;opacity:0.7">VIP专属功能</div>
+
+      <div class="uc vip">AI智能对话</div>
+      <div class="connector" style="color:#f59e0b"></div>
+      <div class="uc vip">破解VIP视频</div>
+      <div class="connector" style="color:#f59e0b"></div>
+      <div class="uc vip">搜索/播放VIP音乐</div>
+      <div class="connector" style="color:#f59e0b"></div>
+      <div class="uc vip">爬取下载小说</div>
+      <div class="connector" style="color:#f59e0b"></div>
+      <div class="uc vip">开通/管理VIP</div>
+    </div>
+  </div>
+
+  <!-- 系统参与者 -->
+  <div style="margin-top:30px;padding-top:20px;border-top:1px solid rgba(0,212,255,0.15);display:flex;flex-direction:column;align-items:center">
+    <div class="actor c-sys">
+      <div class="actor-head" style="border-color:#00d4ff"></div>
+      <div class="actor-arms" style="background:#00d4ff"></div>
+      <div class="actor-body" style="background:#00d4ff"></div>
+      <div class="actor-label" style="color:#00d4ff">系统</div>
+      <div class="actor-sub">（后端爬虫引擎）</div>
+    </div>
+    <div class="connector" style="color:#00d4ff"></div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:4px">
+      <div class="uc sys">执行爬虫任务</div>
+      <div class="uc sys">调用网易云API</div>
+      <div class="uc sys">DeepSeek模型推理</div>
+      <div class="uc sys">数据存储与查询</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 图例 -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-color" style="background:#4a6fa5"></div> 访客</div>
+  <div class="legend-item"><div class="legend-color" style="background:#7c3aed"></div> 普通用户</div>
+  <div class="legend-item"><div class="legend-color" style="background:#f59e0b"></div> VIP用户</div>
+  <div class="legend-item"><div class="legend-color" style="background:#00d4ff"></div> 系统</div>
+  <div class="legend-item"><div style="width:20px;height:0;border-top:2px dashed #94a3b8"></div> 继承（泛化）</div>
+  <div class="legend-item"><div style="width:20px;height:20px;border-radius:50px;border:1.5px solid #e2e8f0"></div> 用例</div>
+</div>
+
+<p style="text-align:center;color:#555;font-size:11px;margin-top:20px">
+  也可用 draw.io 打开 <code style="color:#00d4ff">docs/用例图.drawio</code> 查看和编辑
+</p>
+
+</body>
+</html>

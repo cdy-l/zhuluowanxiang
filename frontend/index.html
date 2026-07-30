@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蛛罗万象</title>
+<link rel="stylesheet" href="css/style.css?v=14">
+</head>
+<body>
+<div id="particles"></div>
+<aside class="sidebar" id="sidebar">
+<div class="logo"><span class="logo-icon">🕸️</span><span class="logo-text">蛛罗万象</span></div>
+<nav class="nav" id="nav">
+<a class="nav-item active" data-page="dashboard" onclick="switchPage('dashboard')"><span class="nav-icon">🏠</span><span class="nav-label">万象平台</span></a>
+<a class="nav-item" data-page="tutorial" onclick="switchPage('tutorial')"><span class="nav-icon">📖</span><span class="nav-label">使用教程</span></a>
+<a class="nav-item" data-page="vip" onclick="switchPage('vip')"><span class="nav-icon">💎</span><span class="nav-label">VIP 会员</span></a>
+</nav>
+<div class="sidebar-footer">
+<div class="sidebar-user" id="sidebar-user" onclick="showAuthModal()">
+<span class="user-avatar" id="sidebar-avatar">👤</span>
+<span class="user-name" id="sidebar-username">未登录</span>
+</div>
+<span>v1.0.0</span>
+</div>
+</aside>
+<main class="main" id="main">
+<header class="topbar"><button class="menu-btn" onclick="toggleSidebar()">?</button><h1 id="page-title">万象平台</h1></header>
+<div class="content" id="content">
+<div class="page active" id="page-dashboard">
+<div class="hero"><h2>欢迎来到 <span class="glow">蛛罗万象</span></h2><p class="hero-sub">全场景可视化爬虫集成平台</p></div>
+<div class="crawler-grid" id="crawler-grid"></div>
+</div>
+<div class="page" id="page-vip-video"><div class="tool-header"><h2>VIP视频破解</h2></div><div class="tool-body"><div class="platform-buttons" id="platform-buttons"></div><div class="input-group"><input type="text" id="video-url" placeholder="粘贴视频链接..." class="glow-input"><button onclick="playVideo()" class="glow-btn">播放</button></div></div></div>
+<div class="page" id="page-vip-music">
+<div class="music-layout">
+<!-- 左侧：播放列表 -->
+<div class="music-playlist-panel">
+<div class="music-search-row">
+<input type="text" id="music-keyword" placeholder="搜索歌曲、歌手..." onkeydown="if(event.key==='Enter')searchMusic()">
+<button class="music-search-btn" onclick="searchMusic()">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+</button>
+</div>
+<div id="cookie-hint" style="display:none">
+<span>⚠️</span> 未配置网易云Cookie，无法播放完整歌曲。 <a onclick="showCookieConfig()" style="color:var(--accent);cursor:pointer;text-decoration:underline">点此配置 →</a>
+</div>
+<div class="music-playlist" id="music-playlist">
+<div class="music-empty-state">
+<div class="music-empty-icon">🎵</div>
+<p>搜索你喜欢的音乐</p>
+</div>
+</div>
+</div>
+
+<!-- 右侧：播放器 -->
+<div class="music-player-panel">
+<div class="music-cover">
+<div class="music-cover-art" id="music-cover">🎧</div>
+<div class="music-cover-ring"></div>
+</div>
+<div class="music-now-title" id="music-now-title">未在播放</div>
+<div class="music-now-artist" id="music-now-artist">选择一首歌曲开始</div>
+<div class="music-progress-bar" id="music-progress-container">
+<span class="music-time" id="music-cur-time">0:00</span>
+<div class="music-progress-track" id="music-progress-track">
+<div class="music-progress-fill" id="music-progress-fill"></div>
+<div class="music-progress-thumb" id="music-progress-thumb"></div>
+</div>
+<span class="music-time" id="music-total-time">0:00</span>
+</div>
+<div class="music-controls">
+<button class="music-ctrl-btn" onclick="prevMusic()" title="上一首">⏮</button>
+<button class="music-ctrl-btn music-ctrl-play" id="music-play-btn" onclick="togglePlay()" title="播放">▶️</button>
+<button class="music-ctrl-btn" onclick="nextMusic()" title="下一首">⏭</button>
+</div>
+<div class="music-volume-row">
+<span style="font-size:0.85rem">🔊</span>
+<input type="range" id="music-volume" min="0" max="100" value="70" oninput="setVolume(this.value)">
+</div>
+<div class="music-cookie-status" id="netease-cookie-status" onclick="showCookieConfig()">⚙ 配置Cookie</div>
+</div>
+</div>
+</div>
+<div class="modal-overlay" id="cookie-modal" onclick="if(event.target===this)hideCookieConfig()"><div class="modal-box" style="max-width:500px"><button class="modal-close" onclick="hideCookieConfig()">×</button><h3 style="margin-top:0.5rem">配置网易云Cookie</h3><p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:0.75rem">需要登录网易云音乐后，从浏览器开发者工具中复制 Cookie。<br>具体操作：F12 → Network → 任意请求 → Request Headers → 复制 Cookie 完整内容</p><textarea id="cookie-input" rows="8" style="width:100%;background:rgba(0,0,0,0.3);color:var(--text-primary);border:1px solid var(--border);border-radius:8px;padding:0.75rem;font-size:0.8rem;resize:vertical;font-family:monospace" placeholder="在此粘贴 Cookie..."></textarea><div style="display:flex;gap:0.5rem;margin-top:0.75rem;justify-content:flex-end"><button class="glow-btn" onclick="hideCookieConfig()" style="background:transparent;border:1px solid var(--border)">取消</button><button class="glow-btn" onclick="saveNeteaseCookie()">保存</button></div></div></div>
+<div class="page" id="page-movie-info"><div class="tool-header"><h2>影视资讯</h2></div><div class="tool-body"><div style="display:flex;gap:0.5rem"><button class="glow-btn" onclick="loadMovieTab('nowplaying')">正在热映</button><button class="glow-btn" onclick="loadMovieTab('top250')">Top250</button></div><div id="movie-result"></div></div></div>
+<div class="page" id="page-steam-deals"><div class="tool-header"><h2>Steam游戏折扣</h2></div><div class="tool-body"><div style="display:flex;gap:0.5rem"><button class="glow-btn" onclick="loadSteamTab('specials')">特惠</button><button class="glow-btn" onclick="loadSteamTab('top')">热销</button></div><div id="steam-result"></div></div></div>
+<div class="page" id="page-novel"><div class="tool-header"><h2>小说爬取</h2></div><div class="tool-body"><div class="input-group"><input type="text" id="novel-slug" placeholder="输入slug..." class="glow-input"><button onclick="startCrawl()" class="glow-btn">下载</button></div><div id="novel-result" style="display:none"></div></div></div>
+<div class="page" id="page-price-compare"><div class="tool-header"><h2>商品比价</h2></div><div class="tool-body"><div class="input-group"><input type="text" id="pc-keyword" placeholder="输入关键词..." class="glow-input"><button onclick="searchPrice()" class="glow-btn">搜索</button></div><div id="pc-result"></div></div></div>
+<div class="page" id="page-ai-tools"><div class="chat-container"><div class="chat-messages" id="chat-messages"><div class="chat-msg assistant"><div class="chat-avatar">🤖</div><div class="chat-bubble">你好！我是AI助手</div></div></div><div class="chat-input-area"><textarea id="chat-input" rows="2" placeholder="输入问题..."></textarea><button id="chat-send-btn" onclick="sendMessage()" class="glow-btn">发送</button></div></div></div>
+<div class="page" id="page-trending"><div class="tool-header"><h2>热搜热榜</h2></div><div class="tool-body"><div style="display:flex;gap:0.5rem"><button class="trending-tab active" data-platform="weibo" onclick="switchTrending('weibo')">微博</button><button class="trending-tab" data-platform="zhihu" onclick="switchTrending('zhihu')">头条</button><button class="trending-tab" data-platform="baidu" onclick="switchTrending('baidu')">百度</button></div><div id="trending-result"></div></div></div>
+<div class="page" id="page-name-picker"><div class="tool-header"><h2>随机点名</h2></div><div class="tool-body"><textarea id="names-input" placeholder="输入姓名，换行/逗号分隔..." style="width:100%;min-height:120px"></textarea><div id="name-count" style="margin-top:0.25rem"></div><button class="glow-btn" style="margin-top:0.5rem">点名</button><div id="pick-result"></div></div></div>
+<div class="page" id="page-today-in-history"><div class="tool-header"><h2>历史上的今天</h2></div><div class="tool-body"><div id="history-result"></div></div></div>
+<div class="page" id="page-profile">
+<div class="tool-header"><h2>个人信息</h2></div>
+<div class="tool-body" style="max-width:500px">
+<div class="profile-avatar-section" id="profile-avatar-section" onclick="document.getElementById('avatar-picker').classList.toggle('show')">
+<span class="profile-avatar" id="profile-avatar">👤</span>
+<div class="profile-avatar-label">点击更换头像</div>
+<div class="avatar-picker" id="avatar-picker">
+<div class="avatar-options" id="avatar-options"></div>
+</div>
+</div>
+<form class="profile-form" id="profile-form" onsubmit="return false">
+<div class="vip-info-card" id="profile-vip-info" style="margin-bottom:1rem;padding:0.75rem 1rem;background:rgba(0,212,255,0.05);border:1px solid var(--border);border-radius:8px;text-align:center;font-size:0.85rem"></div>
+<div class="form-group"><label>用户名</label><input type="text" id="pf-username" class="glow-input" readonly style="opacity:.6;cursor:not-allowed"></div>
+<div class="form-group"><label>个性签名</label><input type="text" id="pf-bio" class="glow-input" placeholder="介绍下自己..." maxlength="100"></div>
+<div class="form-row">
+<div class="form-group"><label>性别</label><select id="pf-gender" class="glow-input"><option value="">未设置</option><option value="男">男</option><option value="女">女</option></select></div>
+<div class="form-group"><label>星座</label><select id="pf-zodiac" class="glow-input"><option value="">未设置</option><option>白羊座</option><option>金牛座</option><option>双子座</option><option>巨蟹座</option><option>狮子座</option><option>处女座</option><option>天秤座</option><option>天蝎座</option><option>射手座</option><option>摩羯座</option><option>水瓶座</option><option>双鱼座</option></select></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>生日</label><input type="date" id="pf-birthday" class="glow-input"></div>
+<div class="form-group"><label>来自</label><input type="text" id="pf-location" class="glow-input" placeholder="城市"></div>
+</div>
+<p class="profile-error" id="profile-error"></p>
+<button type="submit" class="glow-btn profile-save-btn" onclick="saveProfile()">保存</button>
+</form>
+</div>
+</div>
+<div class="page" id="page-mini-games">
+<div class="tool-header"><h2>🎮 小游戏合集</h2><p style="color:var(--text-secondary)">休闲益智，劳逸结合</p></div>
+<div class="tool-body" style="max-width:600px">
+<div class="game-tabs" id="game-tabs">
+<button class="game-tab" data-game="snake" onclick="startGame('snake')">🐍 贪吃蛇</button>
+<button class="game-tab" data-game="breakout" onclick="startGame('breakout')">🧱 打砖块</button>
+<button class="game-tab" data-game="2048" onclick="startGame('2048')">🔢 2048</button>
+<button class="game-tab" data-game="tetris" onclick="startGame('tetris')">🧩 俄罗斯方块</button>
+</div>
+<div id="games-canvas-wrap"></div>
+<div class="game-info-bar">
+<span>得分: <strong id="game-score">0</strong></span>
+<span id="game-status"></span>
+</div>
+<div class="game-controls-tip" id="game-controls-tip">选择上方游戏开始</div>
+<div class="game-leaderboard" id="game-leaderboard"></div>
+</div>
+</div>
+<div class="page" id="page-vip">
+<div class="tool-header"><h2>💎 VIP 会员</h2><p style="color:var(--text-secondary)">解锁全部高级功能</p></div>
+<div class="vip-benefits"><div class="vip-benefit">🤖 AI 智能助手</div><div class="vip-benefit">🎬 VIP 视频破解</div><div class="vip-benefit">🎵 VIP 音乐搜索</div><div class="vip-benefit">📚 小说爬取</div></div>
+<div class="vip-cards">
+<div class="vip-card" onclick="createOrder('monthly')"><div class="vip-card-label">月付</div><div class="vip-card-price"><span class="vip-price-num">10</span><span class="vip-price-unit">元/月</span></div><div class="vip-card-desc">按月订阅，随时续费</div><button class="glow-btn vip-btn">立即开通</button></div>
+<div class="vip-card vip-card-featured" onclick="createOrder('yearly')"><div class="vip-card-badge">推荐</div><div class="vip-card-label">年付</div><div class="vip-card-price"><span class="vip-price-num">100</span><span class="vip-price-unit">元/年</span></div><div class="vip-card-desc">平均每月仅 8.3 元，省更多</div><button class="glow-btn vip-btn">立即开通</button></div>
+</div>
+<div class="vip-status-card" id="vip-status-card" style="display:none"><h3>当前会员状态</h3><p id="vip-status-text"></p></div>
+</div>
+<div class="page" id="page-tutorial"><div style="padding:2rem"><h2 style="text-align:center;margin-bottom:2rem">📖 使用教程</h2><div id="tutorial-card" style="display:flex;flex-direction:column;gap:1.25rem;max-width:700px;margin:0 auto"><div class="tool-body" style="padding:1.5rem"><h3 style="color:var(--accent);margin-bottom:0.75rem">🎬 VIP视频破解</h3><p style="color:var(--text-secondary);line-height:1.7">点击导航栏中的平台按钮（爱奇艺、腾讯视频等），复制视频链接，粘贴到输入框，点击"播放"即可跳转解析播放。</p></div><div class="tool-body" style="padding:1.5rem"><h3 style="color:var(--accent);margin-bottom:0.75rem">🎵 VIP音乐搜索</h3><p style="color:var(--text-secondary);line-height:1.7">输入歌曲名或歌手，点击搜索，即可播放完整歌曲。支持上一首/下一首、进度条拖拽、音量控制等功能。需配置网易云Cookie（含 MUSIC_U）才能获取完整歌曲链接。</p></div><div class="tool-body" style="padding:1.5rem"><h3 style="color:var(--accent);margin-bottom:0.75rem">📚 小说爬取</h3><p style="color:var(--text-secondary);line-height:1.7">输入小说slug（如"coiling-dragon"），点击下载。系统将从Wuxiaworld逐章爬取并保存为TXT文件。</p></div><div class="tool-body" style="padding:1.5rem"><h3 style="color:var(--accent);margin-bottom:0.75rem">🛒 商品比价</h3><p style="color:var(--text-secondary);line-height:1.7">输入商品关键词，搜索后展示多平台价格对比，点击可跳转到商品详情页。涵盖京东、淘宝、拼多多等主流电商平台。</p></div><div class="tool-body" style="padding:1.5rem"><h3 style="color:var(--accent);margin-bottom:0.75rem">🤖 AI智能助手</h3><p style="color:var(--text-secondary);line-height:1.7">在对话框中输入问题，AI助手将基于DeepSeek模型进行回答。支持多轮对话，适合解答问题、处理文本等场景。</p></div><div class="tool-body" style="padding:1.5rem"><h3 style="color:var(--accent);margin-bottom:0.75rem">📡 其他工具</h3><ul style="color:var(--text-secondary);line-height:1.7;padding-left:1.25rem"><li style="margin-bottom:0.5rem"><strong style="color:var(--text-primary)">热搜热榜：</strong>查看微博、头条、百度热搜</li><li style="margin-bottom:0.5rem"><strong style="color:var(--text-primary)">影视资讯：</strong>查看正在热映和Top250电影</li><li style="margin-bottom:0.5rem"><strong style="color:var(--text-primary)">Steam游戏折扣：</strong>查看Steam特惠和热销游戏</li><li style="margin-bottom:0.5rem"><strong style="color:var(--text-primary)">IP/域名查询：</strong>查询IP地址或域名的DNS和地理位置</li><li style="margin-bottom:0.5rem"><strong style="color:var(--text-primary)">随机点名：</strong>输入姓名列表，随机抽取一人</li><li style="margin-bottom:0.5rem"><strong style="color:var(--text-primary)">历史上的今天：</strong>查看历史上今天发生的事件</li></ul></div></div></div></div>
+</div>
+</main>
+<div class="modal-overlay" id="auth-modal" onclick="if(event.target===this)hideAuthModal()"><div class="modal-box"><button class="modal-close" onclick="hideAuthModal()">&#10006;</button><div class="modal-tabs"><button class="modal-tab active" id="tab-login" onclick="switchAuthTab('login')">登录</button><button class="modal-tab" id="tab-register" onclick="switchAuthTab('register')">注册</button></div><form class="auth-form" id="auth-form" onsubmit="return false"><div class="form-group"><input type="text" id="auth-username" class="glow-input" placeholder="用户名"></div><div class="form-group"><input type="password" id="auth-password" class="glow-input" placeholder="密码"></div><div class="form-group" id="confirm-password-group" style="display:none"><input type="password" id="auth-confirm" class="glow-input" placeholder="确认密码"></div><p class="auth-error" id="auth-error"></p><button type="submit" class="glow-btn auth-submit" id="auth-submit" onclick="handleAuth()">登录</button></form></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/OrbitControls.js?v=3"></script>
+<script src="js/tutorial-particles.js"></script>
+<script src="js/app.js?v=21"></script>
+<script src="js/games.js"></script>
+<script src="js/nebula.js?v=19"></script>
+</body>
+</html>

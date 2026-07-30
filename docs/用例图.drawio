@@ -1,0 +1,194 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="use-case-diagram" name="用例图">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" background="#0a0e1a">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;蛛罗万象 - 系统用例图&lt;/b&gt;" style="text;html=1;fillColor=none;fontSize=18;fontColor=#00d4ff;align=center;verticalAlign=middle;fontStyle=1;strokeColor=none;rotation=0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="10" width="400" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- SYSTEM BOUNDARY -->
+        <!-- ============================================================ -->
+        <mxCell id="sys-boundary" value="&lt;b&gt;蛛罗万象 系统边界&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#00d4ff;strokeWidth=2;dashed=1;fontColor=#00d4ff;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="20" y="60" width="1160" height="820" as="geometry"/>
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- ACTOR: 访客 -->
+        <!-- ============================================================ -->
+        <mxCell id="visitor-actor" value="&lt;b&gt;访客&lt;/b&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#4a6fa5;strokeColor=#4a6fa5;gradientColor=none;fontColor=#e2e8f0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="100" width="30" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Visitor use cases -->
+        <mxCell id="uc-browse" value="浏览首页" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1a2744;strokeColor=#4a6fa5;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="190" width="100" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc-tutorial" value="查看使用教程" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1a2744;strokeColor=#4a6fa5;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="250" width="100" height="36" as="geometry"/>
+        </mxCell>
+
+        <!-- Visitor → use cases -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;exitPerimeter=1;entryX=0.5;entryY=0;strokeColor=#4a6fa5;" edge="1" parent="1" source="visitor-actor" target="uc-browse"/>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;exitPerimeter=1;entryX=0.5;entryY=0;strokeColor=#4a6fa5;" edge="1" parent="1" source="visitor-actor" target="uc-tutorial"/>
+
+        <!-- ============================================================ -->
+        <!-- ACTOR: 普通用户 -->
+        <!-- ============================================================ -->
+        <mxCell id="user-actor" value="&lt;b&gt;普通用户&lt;/b&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#7c3aed;strokeColor=#7c3aed;gradientColor=none;fontColor=#e2e8f0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="480" y="100" width="30" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Generalize: 普通用户 → 访客 -->
+        <mxCell id="gen-user-visitor" value="&lt;i&gt;继承&lt;/i&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=1;exitY=0.5;entryX=0.5;entryY=0;strokeColor=#7c3aed;dashed=1;fontColor=#94a3b8;fontSize=9;" edge="1" parent="1" source="visitor-actor" target="user-actor"/>
+
+        <!-- Common user use cases (left column) -->
+        <!-- Col 1 -->
+        <mxCell id="uc-login" value="登录 / 注册" style="ellipse;whiteSpace=wrap;html=1;fillColor=#2d1b4e;strokeColor=#7c3aed;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="190" width="100" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc-trending" value="查看热搜热榜" style="ellipse;whiteSpace=wrap;html=1;fillColor=#2d1b4e;strokeColor=#7c3aed;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="300" y="260" width="100" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc-movie" value="浏览影视资讯" style="ellipse;whiteSpace=wrap;html=1;fillColor=#2d1b4e;strokeColor=#7c3aed;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="260" width="100" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc-steam" value="Steam折扣查询" style="ellipse;whiteSpace=wrap;html=1;fillColor=#2d1b4e;strokeColor=#7c3aed;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="520" y="260" width="100" height="36" as="geometry"/>
+        </mxCell>
+        <!-- Col 2 -->
+        <mxCell id="uc-price" value="商品比价" style="ellipse;whiteSpace=wrap;html=1;fillColor=#2d1b4e;strokeColor=#7c3aed;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="300" y="330" width="100" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc-picker" value="随机点名" style="ellipse;whiteSpace=wrap;html=1;fillColor=#2d1b4e;strokeColor=#7c3aed;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="330" width="100" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc-history" value="历史上的今天" style="ellipse;whiteSpace=wrap;html=1;fillColor=#2d1b4e;strokeColor=#7c3aed;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="520" y="330" width="100" height="36" as="geometry"/>
+        </mxCell>
+        <!-- Col 3 -->
+        <mxCell id="uc-games" value="玩小游戏合集" style="ellipse;whiteSpace=wrap;html=1;fillColor=#2d1b4e;strokeColor=#7c3aed;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="300" y="400" width="100" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc-profile" value="管理个人信息" style="ellipse;whiteSpace=wrap;html=1;fillColor=#2d1b4e;strokeColor=#7c3aed;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="400" width="100" height="36" as="geometry"/>
+        </mxCell>
+
+        <!-- User → use cases -->
+        <mxCell id="e-login" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;exitPerimeter=1;entryX=0.5;entryY=0;strokeColor=#7c3aed;" edge="1" parent="1" source="user-actor" target="uc-login"/>
+        <mxCell id="e-trending" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=1;exitY=0.5;strokeColor=#7c3aed;" edge="1" parent="1" source="user-actor" target="uc-trending"/>
+        <mxCell id="e-movie" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=1;exitY=0.5;strokeColor=#7c3aed;" edge="1" parent="1" source="user-actor" target="uc-movie"/>
+        <mxCell id="e-steam" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=1;exitY=0.5;strokeColor=#7c3aed;" edge="1" parent="1" source="user-actor" target="uc-steam"/>
+        <mxCell id="e-price" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=1;exitY=0.5;strokeColor=#7c3aed;" edge="1" parent="1" source="user-actor" target="uc-price"/>
+        <mxCell id="e-picker" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=1;exitY=0.5;strokeColor=#7c3aed;" edge="1" parent="1" source="user-actor" target="uc-picker"/>
+        <mxCell id="e-history" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=1;exitY=0.5;strokeColor=#7c3aed;" edge="1" parent="1" source="user-actor" target="uc-history"/>
+        <mxCell id="e-games" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=1;exitY=0.5;strokeColor=#7c3aed;" edge="1" parent="1" source="user-actor" target="uc-games"/>
+        <mxCell id="e-profile" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=1;exitY=0.5;strokeColor=#7c3aed;" edge="1" parent="1" source="user-actor" target="uc-profile"/>
+
+        <!-- ============================================================ -->
+        <!-- ACTOR: VIP用户 -->
+        <!-- ============================================================ -->
+        <mxCell id="vip-actor" value="&lt;b&gt;VIP用户&lt;/b&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#f59e0b;strokeColor=#f59e0b;gradientColor=none;fontColor=#e2e8f0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="900" y="100" width="30" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Generalize: VIP → 普通用户 -->
+        <mxCell id="gen-vip-user" value="&lt;i&gt;继承&lt;/i&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0;exitY=0.5;exitPerimeter=1;entryX=1;entryY=0.5;strokeColor=#f59e0b;dashed=1;fontColor=#94a3b8;fontSize=9;" edge="1" parent="1" source="user-actor" target="vip-actor"/>
+
+        <!-- VIP use cases -->
+        <mxCell id="uc-ai" value="AI智能对话" style="ellipse;whiteSpace=wrap;html=1;fillColor=#3d2e0e;strokeColor=#f59e0b;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="840" y="190" width="110" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc-vip-video" value="破解VIP视频" style="ellipse;whiteSpace=wrap;html=1;fillColor=#3d2e0e;strokeColor=#f59e0b;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="840" y="250" width="110" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc-vip-music" value="搜索/播放VIP音乐" style="ellipse;whiteSpace=wrap;html=1;fillColor=#3d2e0e;strokeColor=#f59e0b;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="840" y="310" width="110" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc-novel" value="爬取下载小说" style="ellipse;whiteSpace=wrap;html=1;fillColor=#3d2e0e;strokeColor=#f59e0b;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="840" y="370" width="110" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc-vip-mgr" value="开通/管理VIP" style="ellipse;whiteSpace=wrap;html=1;fillColor=#3d2e0e;strokeColor=#f59e0b;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="840" y="430" width="110" height="36" as="geometry"/>
+        </mxCell>
+
+        <!-- VIP → use cases -->
+        <mxCell id="e-ai" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;exitPerimeter=1;entryX=0.5;entryY=0;strokeColor=#f59e0b;" edge="1" parent="1" source="vip-actor" target="uc-ai"/>
+        <mxCell id="e-vip-v" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;strokeColor=#f59e0b;" edge="1" parent="1" source="vip-actor" target="uc-vip-video"/>
+        <mxCell id="e-vip-m" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;strokeColor=#f59e0b;" edge="1" parent="1" source="vip-actor" target="uc-vip-music"/>
+        <mxCell id="e-novel" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;strokeColor=#f59e0b;" edge="1" parent="1" source="vip-actor" target="uc-novel"/>
+        <mxCell id="e-vip-mgr" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;strokeColor=#f59e0b;" edge="1" parent="1" source="vip-actor" target="uc-vip-mgr"/>
+
+        <!-- ============================================================ -->
+        <!-- ACTOR: 系统（右侧） -->
+        <!-- ============================================================ -->
+        <mxCell id="sys-actor" value="&lt;b&gt;系统&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot; color=&quot;#94a3b8&quot;&gt;（后端爬虫引擎）&lt;/font&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#00d4ff;strokeColor=#00d4ff;gradientColor=none;fontColor=#e2e8f0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="550" width="30" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- System use cases -->
+        <mxCell id="uc-crawl" value="执行爬虫任务" style="ellipse;whiteSpace=wrap;html=1;fillColor=#0a3d4a;strokeColor=#00d4ff;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="20" y="640" width="110" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc-api" value="调用网易云API" style="ellipse;whiteSpace=wrap;html=1;fillColor=#0a3d4a;strokeColor=#00d4ff;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="140" y="640" width="110" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc-deepseek" value="DeepSeek模型推理" style="ellipse;whiteSpace=wrap;html=1;fillColor=#0a3d4a;strokeColor=#00d4ff;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="20" y="700" width="110" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc-db" value="数据存储与查询" style="ellipse;whiteSpace=wrap;html=1;fillColor=#0a3d4a;strokeColor=#00d4ff;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="140" y="700" width="110" height="36" as="geometry"/>
+        </mxCell>
+
+        <!-- System → use cases -->
+        <mxCell id="e-crawl" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;exitPerimeter=1;entryX=0.5;entryY=0;strokeColor=#00d4ff;" edge="1" parent="1" source="sys-actor" target="uc-crawl"/>
+        <mxCell id="e-api" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;exitPerimeter=1;entryX=0.5;entryY=0;strokeColor=#00d4ff;" edge="1" parent="1" source="sys-actor" target="uc-api"/>
+        <mxCell id="e-deepseek" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;strokeColor=#00d4ff;" edge="1" parent="1" source="sys-actor" target="uc-deepseek"/>
+        <mxCell id="e-db" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;strokeColor=#00d4ff;" edge="1" parent="1" source="sys-actor" target="uc-db"/>
+
+        <!-- ============================================================ -->
+        <!-- LEGEND -->
+        <!-- ============================================================ -->
+        <mxCell id="legend" value="" style="group;" vertex="1" parent="1" connectable="0">
+          <mxGeometry x="820" y="530" width="320" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-bg" value="&lt;b&gt;图例&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#333;fontColor=#e2e8f0;fontSize=11;" vertex="1" parent="legend">
+          <mxGeometry x="0" y="0" width="280" height="160" as="geometry"/>
+        </mxCell>
+        <!-- Legend: Actor -->
+        <mxCell id="legend-actor" value="" style="shape=umlActor;html=1;outlineConnect=0;fillColor=none;strokeColor=#e2e8f0;gradientColor=none;fontColor=#e2e8f0;fontSize=10;" vertex="1" parent="legend">
+          <mxGeometry x="15" y="35" width="20" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-actor-label" value="参与者（角色）" style="text;html=1;fillColor=none;fontColor=#94a3b8;fontSize=9;align=left;verticalAlign=middle;strokeColor=none;" vertex="1" parent="legend">
+          <mxGeometry x="45" y="35" width="100" height="20" as="geometry"/>
+        </mxCell>
+        <!-- Legend: Use Case -->
+        <mxCell id="legend-uc" value="用例" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1a2744;strokeColor=#4a6fa5;fontColor=#e2e8f0;fontSize=8;" vertex="1" parent="legend">
+          <mxGeometry x="15" y="65" width="60" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-uc-label" value="功能用例" style="text;html=1;fillColor=none;fontColor=#94a3b8;fontSize=9;align=left;verticalAlign=middle;strokeColor=none;" vertex="1" parent="legend">
+          <mxGeometry x="85" y="65" width="100" height="20" as="geometry"/>
+        </mxCell>
+        <!-- Legend: Inherit -->
+        <mxCell id="legend-inherit" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#94a3b8;dashed=1;" edge="1" parent="legend">
+          <mxGeometry x="15" y="100" width="60" height="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-inherit-label" value="继承关系（泛化）" style="text;html=1;fillColor=none;fontColor=#94a3b8;fontSize=9;align=left;verticalAlign=middle;strokeColor=none;" vertex="1" parent="legend">
+          <mxGeometry x="85" y="90" width="120" height="20" as="geometry"/>
+        </mxCell>
+        <!-- Legend: System boundary -->
+        <mxCell id="legend-boundary" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#00d4ff;strokeWidth=2;dashed=1;fontColor=#00d4ff;fontSize=8;" vertex="1" parent="legend">
+          <mxGeometry x="15" y="115" width="60" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-boundary-label" value="系统边界" style="text;html=1;fillColor=none;fontColor=#94a3b8;fontSize=9;align=left;verticalAlign=middle;strokeColor=none;" vertex="1" parent="legend">
+          <mxGeometry x="85" y="115" width="100" height="20" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

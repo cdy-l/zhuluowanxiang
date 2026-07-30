@@ -1,0 +1,14 @@
+﻿<!DOCTYPE html><html><head><meta charset="UTF-8"><title>架构设计</title><style>body{font-family:system-ui,"Microsoft YaHei",sans-serif;background:#0a0e1a;padding:2rem;max-width:900px;margin:0 auto;color:#e0e0e0}h2{font-size:1.5rem;color:#00d4ff;margin-bottom:0.5rem;text-shadow:0 0 10px rgba(0,212,255,0.3)}.subtitle{color:#888;margin-bottom:1.5rem}.section{background:rgba(255,255,255,0.03);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}h3{color:#00d4ff;font-size:1.1rem;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.5rem}ul{list-style:none;padding:0}li{padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.9rem}li:last-child{border-bottom:none}code{background:rgba(0,212,255,0.1);padding:0.15rem 0.5rem;border-radius:4px;color:#00d4ff;font-size:0.85rem}.tag{display:inline-block;padding:0.15rem 0.5rem;border-radius:4px;font-size:0.75rem;margin-left:0.5rem}.tag.py{background:#2b5b84;color:#fff}.tag.js{background:#c99d2b;color:#fff}.arrow{color:#00d4ff;margin:0 0.5rem}</style></head><body><h2>「蛛罗万象」架构设计草案</h2><p class="subtitle">全场景可视化爬虫集成平台 — V1 方案</p><div class="section"><h3>📁 项目结构</h3><pre style="background:rgba(0,0,0,0.3);padding:1rem;border-radius:8px;font-size:0.85rem;color:#aaa;margin:0"><code>code/
+├── backend/
+│   ├── main.py              # FastAPI 入口 + API 路由
+│   ├── requirements.txt     # 依赖
+│   └── crawlers/            # 爬虫模块目录（可扩展）
+│       ├── __init__.py
+│       └── vip_video.py     # VIP视频破解功能
+├── frontend/
+│   ├── index.html           # 主页面
+│   ├── css/
+│   │   └── style.css        # 科技风样式
+│   └── js/
+│       └── app.js           # 前端逻辑
+</code></pre></div><div class="section"><h3>🔌 架构概览</h3><ul><li><strong>前端 → 后端</strong><span class="arrow">→</span> REST API（Fetch）</li><li><strong>后端 → 爬虫</strong><span class="arrow">→</span> 插件化模块加载</li><li><strong>VIP 视频功能</strong><span class="arrow">→</span> 输入链接 → 后端转发解析服务 → 跳转播放（保留现有 jx.xmflv.cc 方案）</li><li><strong>扩展机制</strong><span class="arrow">→</span> 在 crawlers/ 下新增 .py 文件即可注册新爬虫</li></ul></div><div class="section"><h3>🎨 前端页面规划</h3><ul><li><strong>首页仪表盘</strong> — 爬虫模块卡片网格，统计信息，科技风粒子背景</li><li><strong>VIP视频页</strong> — 输入框 + 平台快捷按钮 + 播放按钮，带动态效果</li><li><strong>全局导航</strong> — 左侧收缩式导航栏，深色主题，霓虹蓝色调</li></ul></div></body></html>

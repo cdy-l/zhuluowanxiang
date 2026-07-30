@@ -1,0 +1,6 @@
+fastapi>=0.110.0
+uvicorn>=0.29.0
+requests>=2.31.0
+parsel>=1.8.0
+pyexecjs>=1.5.1
+jsonpath>=0.82

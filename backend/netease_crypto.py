@@ -7,29 +7,39 @@ from jsonpath import jsonpath
 from pathlib import Path
 
 _JS_COMPILED = None
+_JS_ERROR = None
 COOKIE_FILE = Path(__file__).parent / "netease_cookie.txt"
 
+
 def _get_js():
-    global _JS_COMPILED
+    global _JS_COMPILED, _JS_ERROR
+    if _JS_ERROR:
+        return None
     if _JS_COMPILED is None:
-        backend_dir = os.path.dirname(os.path.abspath(__file__))
-        js_path = os.path.join(backend_dir, "wangyiyun.js")
-        project_root = os.path.dirname(backend_dir)
-        crypto_js_path = os.path.join(project_root, "node_modules", "crypto-js")
-        with open(js_path, encoding="utf-8") as f:
-            source = f.read()
-        source = source.replace("./node_modules/crypto-js", crypto_js_path.replace("\\", "/"))
-        _JS_COMPILED = execjs.compile(source)
+        try:
+            backend_dir = os.path.dirname(os.path.abspath(__file__))
+            js_path = os.path.join(backend_dir, "wangyiyun.js")
+            project_root = os.path.dirname(backend_dir)
+            crypto_js_path = os.path.join(project_root, "node_modules", "crypto-js")
+            with open(js_path, encoding="utf-8") as f:
+                source = f.read()
+            source = source.replace("./node_modules/crypto-js", crypto_js_path.replace("\\", "/"))
+            _JS_COMPILED = execjs.compile(source)
+        except Exception as e:
+            _JS_ERROR = str(e)
+            return None
     return _JS_COMPILED
 
 
-def encrypt_params(raw_data: dict) -> dict:
+def encrypt_params(raw_data: dict) -> dict | None:
     js_obj = _get_js()
+    if not js_obj:
+        return None
     args_str = json.dumps(raw_data)
     try:
         return js_obj.call("get_data", args_str)
     except Exception:
-        return {}
+        return None
 
 
 def get_cookie() -> str:
@@ -47,7 +57,16 @@ def _extract_csrf(cookie: str) -> str:
     return m.group(1) if m else "76ae6d9119bec2746e07ac368e995601"
 
 
+_ENCRYPT_ERROR = None
+
+
+def get_encrypt_error() -> str | None:
+    return _ENCRYPT_ERROR or _JS_ERROR
+
+
 def get_music_url(song_id: int | str, cookie: str = "", level: str = "standard") -> str | None:
+    global _ENCRYPT_ERROR
+    _ENCRYPT_ERROR = None
     if not cookie:
         cookie = get_cookie()
     csrf_token = _extract_csrf(cookie)
@@ -58,7 +77,10 @@ def get_music_url(song_id: int | str, cookie: str = "", level: str = "standard")
         "csrf_token": csrf_token,
     }
     form_data = encrypt_params(args_dict)
-    if not form_data or not isinstance(form_data, dict):
+    if form_data is None:
+        _ENCRYPT_ERROR = _JS_ERROR or "加密模块初始化失败"
+        return None
+    if not form_data:
         return None
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",

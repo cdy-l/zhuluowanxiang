@@ -12,7 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from crawlers import registry
 from auth import init_db, register, login, get_user_by_token, update_profile, check_tool_access, create_order, confirm_order, get_vip_status
-from netease_crypto import get_music_url, get_cookie, save_cookie
+from netease_crypto import get_music_url, get_cookie, save_cookie, get_encrypt_error
 
 SCORES_DIR = Path(__file__).parent / "game_scores"
 SCORES_DIR.mkdir(exist_ok=True)
@@ -159,6 +159,9 @@ def vip_status(token: str = ""):
 def get_music_real_url(song_id: str, level: str = "standard"):
     url = get_music_url(song_id, level=level)
     if not url:
+        err = get_encrypt_error()
+        if err:
+            return {"success": False, "error": f"解密服务异常: {err}"}
         return {"success": False, "error": "无法获取歌曲播放链接（需要登录网易云账号并配置Cookie）"}
     return {"success": True, "url": url}
 

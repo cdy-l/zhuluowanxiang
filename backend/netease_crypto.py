@@ -20,11 +20,10 @@ def _get_js():
         try:
             backend_dir = os.path.dirname(os.path.abspath(__file__))
             js_path = os.path.join(backend_dir, "wangyiyun.js")
-            project_root = os.path.dirname(backend_dir)
-            crypto_js_path = os.path.join(project_root, "node_modules", "crypto-js")
+            crypto_js_path = os.path.join(backend_dir, "crypto-js").replace("\\", "/")
             with open(js_path, encoding="utf-8") as f:
                 source = f.read()
-            source = source.replace("./node_modules/crypto-js", crypto_js_path.replace("\\", "/"))
+            source = source.replace("./crypto-js", crypto_js_path)
             _JS_COMPILED = execjs.compile(source)
         except Exception as e:
             _JS_ERROR = str(e)

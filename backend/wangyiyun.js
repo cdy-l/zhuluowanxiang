@@ -1,5 +1,5 @@
 // 导入安装的crypto-js第三方库
-const CryptoJS = require("./node_modules/crypto-js")
+const CryptoJS = require("./crypto-js")
 function RSAKeyPair(a, b, c) {
     this.e = biFromHex(a),
     this.d = biFromHex(b),

@@ -5,6 +5,7 @@ import execjs
 import requests
 from jsonpath import jsonpath
 from pathlib import Path
+from typing import Optional
 
 _JS_COMPILED = None
 _JS_ERROR = None
@@ -31,7 +32,7 @@ def _get_js():
     return _JS_COMPILED
 
 
-def encrypt_params(raw_data: dict) -> dict | None:
+def encrypt_params(raw_data: dict) -> Optional[dict]:
     js_obj = _get_js()
     if not js_obj:
         return None
@@ -60,11 +61,11 @@ def _extract_csrf(cookie: str) -> str:
 _ENCRYPT_ERROR = None
 
 
-def get_encrypt_error() -> str | None:
+def get_encrypt_error() -> Optional[str]:
     return _ENCRYPT_ERROR or _JS_ERROR
 
 
-def get_music_url(song_id: int | str, cookie: str = "", level: str = "standard") -> str | None:
+def get_music_url(song_id, cookie: str = "", level: str = "standard") -> Optional[str]:
     global _ENCRYPT_ERROR
     _ENCRYPT_ERROR = None
     if not cookie:

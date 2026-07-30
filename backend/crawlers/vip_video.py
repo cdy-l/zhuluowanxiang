@@ -36,8 +36,12 @@ class VIPVideoCrawler(BaseCrawler):
         video_url = params.get("url", "")
         if not video_url:
             return {"error": "请提供视频链接"}
-        parser_url = f"https://jx.xmflv.cc/?url={video_url}"
-        return {"success": True, "message": "已打开解析页面", "url": parser_url, "redirect": True}
+        parsers = [
+            f"https://jx.xmflv.cc/?url={video_url}",
+            f"https://jx.jsonplayer.com/player/?url={video_url}",
+            f"https://m3u8.hlsjs.com/?url={video_url}",
+        ]
+        return {"success": True, "message": "已打开解析页面", "url": parsers[0], "fallbacks": parsers[1:], "redirect": True}
 
 
 crawler = VIPVideoCrawler()

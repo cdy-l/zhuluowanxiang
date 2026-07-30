@@ -1,4 +1,5 @@
 import os
+import json
 import requests
 from .base import BaseCrawler
 
@@ -40,6 +41,9 @@ class AIToolsCrawler(BaseCrawler):
         if not messages:
             return {"success": False, "error": "请输入消息"}
 
+        if not DEEPSEEK_API_KEY:
+            return {"success": False, "error": "AI 功能未配置 API Key，请在 Railway 环境变量中设置 DEEPSEEK_API_KEY"}
+
         full_messages = [{"role": "system", "content": SYSTEM_PROMPT}] + messages
 
         try:
@@ -71,6 +75,8 @@ class AIToolsCrawler(BaseCrawler):
 
         except requests.exceptions.Timeout:
             return {"success": False, "error": "请求超时，请检查网络后重试"}
+        except json.JSONDecodeError:
+            return {"success": False, "error": "AI 服务返回异常，请稍后重试"}
         except Exception as e:
             return {"success": False, "error": f"请求失败: {str(e)}"}
 

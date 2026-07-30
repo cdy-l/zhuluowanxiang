@@ -1,7 +1,7 @@
 {
   "build": {
     "builder": "NIXPACKS",
-    "buildCommand": "apt-get update && apt-get install -y nodejs"
+    "buildCommand": "apt-get update && apt-get install -y nodejs && npm install crypto-js"
   },
   "deploy": {
     "startCommand": "python main.py",
